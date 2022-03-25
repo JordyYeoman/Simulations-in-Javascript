@@ -8,14 +8,20 @@ let resultsTwenty = [];
 let resultsFifty = [];
 let resultsHundred = [];
 let resultsThousand = [];
-let runningTotalSimulationAmount = [10, 100, 1000, 10000];
+let runningTotalSimulationAmount = [10, 20, 30, 40, 50, 100, 1000, 10000];
 let averageOf100BetsOverNSimulations = [];
 
 const runSimulation = () => {
   let wCount = 0;
   let bCount = 0;
   let lCount = 0;
-  let arrOfSimulationSizes = [10, 20, 50, 100, 1000];
+  let arrOfSimulationSizes = [
+    // 10,
+    // 20,
+    50,
+    // 100,
+    //1000
+  ];
   // Simulate event and if the probability is between the expected value, add to that count
   // 1. Loop over the arrOfSimulationSizes array and grab the value to use as the loop
   arrOfSimulationSizes.forEach((simSize) => {
@@ -101,7 +107,10 @@ const runSimulationNTimes = () => {
     // console.log(resultsHundred);
     // console.log(resultsThousand);
     var results = {
-      resultsHundred,
+      // resultsTen,
+      // resultsTwenty,
+      resultsFifty,
+      // resultsHundred,
       amountOfSims,
     };
     averageOf100BetsOverNSimulations.push(results);
@@ -115,13 +124,40 @@ const runSimulationNTimes = () => {
 
 const simulatorBeast = async () => {
   runSimulationNTimes();
+
+  // Now we have the average of the events occurring.
+
+  // Create a list of expected values between 1-20 (This will be our dollar payouts)
+  let expectedValue = [];
+  for (var i = 1; i <= 20; i++) {
+    expectedValue.push(i);
+  }
+
+  // Usually when we have bonus bet payouts for our SGM's,
+  // we want to calculate our expected return over 50 bets
+  // Stake is 10
+  // Win average is at least 50
+  // Loss is 10
+  // Bonus bet is 10 * 0.7
+  let stake = 10;
+  let win = 50;
+  let loss = -10;
+  let bonusBet = stake * 0.7;
+  let expectedReturns = [];
+
   averageOf100BetsOverNSimulations.forEach((results) => {
-    console.log("Results: " + JSON.stringify(results));
+    let localResults = results.resultsFifty[0];
+    // Create expected return
+    let winnings = win * localResults.winCount - stake * localResults.winCount;
+    let bonusCount =
+      bonusBet * localResults.bCount - stake * localResults.bCount;
+    let lossT = loss * localResults.lCount;
+    let expectedReturn = winnings + bonusCount + lossT;
+    expectedReturns.push(expectedReturn);
   });
+  console.log(expectedReturns);
 };
 
 simulatorBeast();
-
-// Create a list of expected values between 1-20 (This will be our dollar payouts)
 
 // We want to see the average expected payout over 10, 20, 50, 100 & 1000 iterations
