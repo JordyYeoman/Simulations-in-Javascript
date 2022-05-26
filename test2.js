@@ -15,11 +15,9 @@ const getPercentageAsDecimalFromDecimalOdds = (decimalOdds) => {
 // What is the outcome of our [bankroll] if we take this bet 1000 times?
 let bankroll = 0;
 const odds1 = 1.31;
-const stake1 = 25;
 // const odds2 = 3.4;
-const stake2 = 5;
-const highProbWinEventProfit = 2.75;
-const lowProbLoseEventLoss = -7;
+const highProbWinEventProfit = 3;
+const lowProbLoseEventLoss = -8;
 
 // Get odds as percentage value represented as decimal
 const oddsOfEvent1 = getPercentageAsDecimalFromDecimalOdds(odds1);
