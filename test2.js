@@ -14,23 +14,25 @@ const getPercentageAsDecimalFromDecimalOdds = (decimalOdds) => {
 //
 // What is the outcome of our [bankroll] if we take this bet 1000 times?
 let bankroll = 0;
-const odds1 = 1.31;
-// const odds2 = 3.4;
-const highProbWinEventProfit = 3;
-const lowProbLoseEventLoss = -8;
+const odds1 = 1.64;
+const odds2 = 2.35;
+
+const highProbEventOccurs = 2;
+const lowProbEventOccurs = -8;
 
 // Get odds as percentage value represented as decimal
 const oddsOfEvent1 = getPercentageAsDecimalFromDecimalOdds(odds1);
-// const oddsOfEvent2 = getPercentageAsDecimalFromDecimalOdds(odds2);
+const oddsOfEvent2 = getPercentageAsDecimalFromDecimalOdds(odds2);
+console.log(oddsOfEvent1, oddsOfEvent2);
 const runSimulation = () => {
   for (let i = 0; i <= 1000; i++) {
     let randomNumber = getRandomNumber();
     if (randomNumber >= 0 && randomNumber <= oddsOfEvent1) {
-      bankroll += highProbWinEventProfit;
+      bankroll += highProbEventOccurs;
       continue;
     }
     if (randomNumber <= 1 && randomNumber > oddsOfEvent1) {
-      bankroll += lowProbLoseEventLoss;
+      bankroll += lowProbEventOccurs;
       continue;
     }
     console.log('Number didnt fit anywhere!?! WHAT?');
